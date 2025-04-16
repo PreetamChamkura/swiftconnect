@@ -1,31 +1,36 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from swiftcore.models import db, User
 
-bp = Blueprint('auth', __name__, url_prefix='/auth')
+bp = Blueprint('auth', __name__)
 @bp.route('/')
 def home():
-    return "Welcome to SwiftConnect 💖🎤✨"
-@bp.route('/register', methods=['POST'])
+    return "Welcome to SwiftConnect!"
+@bp.route('/register', methods=['GET', 'POST'])
 def register():
-    data = request.get_json()
-    username = data['username']
-    password = generate_password_hash(data['password'])
-    email = data['email']
+    if request.method == 'POST':
+        username = request.form['username']
+        password = generate_password_hash(request.form['password'])
+        email = request.form['email']
 
-    if User.query.get(username):
-        return jsonify({'error': 'User already exists'}), 400
+        if User.query.get(username):
+            return "User already exists!", 400
 
-    user = User(username=username, password=password, email=email)
-    db.session.add(user)
-    db.session.commit()
-    return jsonify({'message': 'User registered successfully'}), 201
+        user = User(username=username, password=password, email=email)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('auth.login'))
 
-@bp.route('/login', methods=['POST'])
+    return render_template('register.html')
+
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
-    data = request.get_json()
-    user = User.query.get(data['username'])
+    if request.method == 'POST':
+        user = User.query.get(request.form['username'])
 
-    if user and check_password_hash(user.password, data['password']):
-        return jsonify({'message': 'Login successful'}), 200
-    return jsonify({'error': 'Invalid credentials'}), 401
+        if user and check_password_hash(user.password, request.form['password']):
+            session['username'] = user.username
+            return render_template('home.html', username=user.username)
+        return "Invalid credentials", 401
+
+    return render_template('login.html')
