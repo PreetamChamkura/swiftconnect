@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ username }}'s Wishlist</title>
+</head>
+<body>
+    <h1>{{ username }}'s Wishlist</h1>
+    {% if items %}
+        <ul>
+        {% for item in items %}
+            <li>
+                <strong>{{ item[0] }}</strong><br>
+                <img src="{{ item[1] }}" alt="{{ item[0] }}" width="150"><br><br>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No wishlist items found.</p>
+    {% endif %}
+</body>
+</html>

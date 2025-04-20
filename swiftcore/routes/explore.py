@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, render_template
 import sqlite3
 
 bp = Blueprint('explore', __name__, url_prefix='/explore')
@@ -12,7 +12,4 @@ def get_songs():
     """)
     songs = cursor.fetchall()
     conn.close()
-    return jsonify([
-        {'song_id': s[0], 'title': s[1], 'album': s[2], 'era': s[3]}
-        for s in songs
-    ])
+    return render_template('explore_songs.html', songs=songs)

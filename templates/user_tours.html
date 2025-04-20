@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Tours</title>
+</head>
+<body>
+    <h1>Your Tours</h1>
+    
+    {% if tours %}
+        <ul>
+            {% for tour in tours %}
+                <li>
+                    <strong>Location:</strong> {{ tour[1] }} | <strong>Era:</strong> {{ tour[2] }} | <strong>Time:</strong> {{ tour[3] }} | <strong>Date:</strong> {{ tour[4] }}
+                    <form action="{{ url_for('tour.delete_tour', tour_id=tour[0]) }}" method="POST" style="display:inline;">
+                        <button type="submit">Delete Tour</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You don't have any tours yet.</p>
+    {% endif %}
+    
+    <a href="/">Back to Home</a>
+</body>
+</html>

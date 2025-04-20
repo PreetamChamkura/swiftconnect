@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Explore Songs</title>
+</head>
+<body>
+    <h1>Explore Songs</h1>
+    <ul>
+        {% for song in songs %}
+        <li>
+            <strong>{{ song[1] }}</strong> from <em>{{ song[2] }}</em> ({{ song[3] }})
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

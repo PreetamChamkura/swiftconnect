@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SwiftConnect</title>
+    <title>SwiftConnect Home</title>
 </head>
 <body>
-    <h1>Welcome to SwiftConnect!</h1>
+    <h1>Welcome to SwiftConnect 💖</h1>
+
+    <ul>
+        <li><a href="/tour/create">Create a Tour</a></li>
+        <li><a href="/playlist/create">Create a Playlist</a></li>
+        <li><a href="/explore/songs">Explore Songs</a></li>
+        <li>
+            <form action="/wishlist/" method="GET">
+                <label>View Wishlist for username:</label>
+                <input type="text" name="username" required>
+                <button type="submit">View Wishlist</button>
+            </form>
+        </li>
+        <li><a href="/merch/add">Add Merch</a></li>
+        <li><a href="/playlist/add-song">Add Song to Playlist</a></li>
+    </ul>
 </body>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Song to Playlist</title>
+</head>
+<body>
+    <h1>Add Song to Playlist</h1>
+    <form method="POST">
+        <label>Choose Playlist:</label>
+        <select name="playlist_id" required>
+            {% for p in playlists %}
+                <option value="{{ p[0] }}">Playlist ID: {{ p[0] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Choose Song:</label>
+        <select name="song_id" required>
+            {% for s in songs %}
+                <option value="{{ s[0] }}">{{ s[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Add Song</button>
+    </form>
+</body>
+</html>
